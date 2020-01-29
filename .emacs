@@ -18,10 +18,12 @@
 ;;
 ;; Tout ce qui est précédé par un point-virgule est un commentaire.
 
+;; Aurelien: Ce setup requiert quelques package sur le systeme. Notament
+;; shellcheck, aspell-fr texlive-full
 ;;; Code:
 
 ;; Nécessaire pour pouvoir configurer les packages additionnels
-(setq package-check-signature nil)
+;; (setq package-check-signature nil)
 (require 'cl)
 (require 'package)
 ;; Commenter pour enlever l'archive melpa à la liste des packages
@@ -144,15 +146,15 @@
 ;; Correction orthographique :
 ;; Be sure to have or install it with :
 ;; $ apt intall aspell-fr
-;; (ispell-change-dictionary "francais" t)
-(ispell-change-dictionary "en_GB" t)
+(ispell-change-dictionary "francais" t)
+;; (ispell-change-dictionary "en_GB" t)
 
 ;; Souligner les mots incorrects en mode LaTeX
 (add-hook 'latex-mode-hook 'flyspell-mode)
 ;; Idem mais compatibilité Auctex
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 ;; Souligner les mots incorrects en mode org
-(add-hook 'org-mode-hook 'flyspell-mode)
+;; (add-hook 'org-mode-hook 'flyspell-mode)
 (add-to-list 'ispell-skip-region-alist '("^#+BEGIN_SRC" . "^#+END_SRC"))
 ;; fontify code in code blocks and dont ask confimation
 ;; for execution
