@@ -66,6 +66,8 @@
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
+(global-set-key (kbd "C-o") 'other-window)
+(global-set-key (kbd "C-b") 'switch-to-buffer)
 
 ;; Vérifications en cours de frappe.
 ;; Si besoin, installer flycheck : http://www.flycheck.org/
@@ -372,6 +374,8 @@
 ;; Never have trailing whitespace.
 ;; May be annoying on legacy code. See ws-butler ??
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; TODO  : python-docstring
 ;; footer
 
 (provide '.emacs)
