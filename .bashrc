@@ -116,6 +116,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Diable non breaking space on alt Gr + space
+setxkbmap -option "nbsp:none"
 # Liste les packages installés manuellement
 list-packages(){
 	comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)
