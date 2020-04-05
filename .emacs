@@ -239,7 +239,51 @@
   :init (setq markdown-command "pandoc"))
 
 (use-package go-mode
+  :ensure t
+  :hook (go-mode. lambda ()
+		  (setq tab-width 4)))
+
+(use-package yaml-mode
   :ensure t)
+
+;;; Web related stuff
+(use-package web-mode
+  :ensure t
+  :mode ("\\.html$" . web-mode)
+  :config
+  (setq web-mode-enable-auto-closing t
+	web-mode-enable-auto-quoting t))
+
+(use-package emmet-mode
+  :ensure t
+  :hook (web-mode . emmet-mode))
+
+(use-package simple-httpd
+  :ensure t
+  :config
+  (setq httpd-port 5656))
+
+
+(use-package impatient-mode
+  :ensure t
+  :config
+  (defun start-impatient ()
+  "Starts the `simple-httpd' server if it is not already running. Turns
+on `impatient-mode' for the current buffer. Opens firefox to see it"
+  (interactive)
+  (unless (get-process "httpd")
+    (message "starting httpd server...")
+    (httpd-start))
+  (impatient-mode)
+  (start-process-shell-command
+   ""
+   nil
+   (concat
+    "firefox localhost:"
+    (number-to-string httpd-port)
+    "/imp/live/"
+    (buffer-name)))))
+
 ;; )))))
 
 (custom-set-variables
@@ -249,7 +293,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package))))
+	(impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package)))
+ '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
