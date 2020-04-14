@@ -194,7 +194,8 @@
 	company-idle-delay 0.1
 	company-tooltip-limit 10
 	company-selection-wrap-around t
-	company-transformers '(company-sort-by-occurrence))
+	company-transformers '(company-sort-by-occurrence)
+	company-dabbrev-downcase nil)
   (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
   (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
   (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
@@ -284,16 +285,51 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
     "/imp/live/"
     (buffer-name)))))
 
-;; )))))
+(use-package js2-mode
+  :ensure t
+  :mode (("\\.js\\'" . js2-mode))
+  :commands (j2-mode)
+  :config
+  (setq js-indent-level 2)
+  (setq js2-indent-level 2))
+
+;; Latex
+;; auctex has weird interaction with use package
+(use-package auctex
+  :ensure t
+  :defer t)
+(add-hook 'latex-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+
+(setq TeX-save-query nil)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)       ;enable document parsing
+(setq reftex-plug-into-AUCTeX t)
+(setq TeX-PDF-mode t)
+(setq TeX-view-program-list (quote (("Okular" "okular --unique %o#src:%n%b"))))
+;; Voir https://tex.stackexchange.com/questions/161797/how-to-configure-emacs-and-auctex-to-perform-forward-and-inverse-search
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(TeX-source-correlate-mode t)
+ '(TeX-source-correlate-start-server t)
+ '(TeX-view-program-selection
+   (quote
+	(((output-dvi has-no-display-manager)
+	  "dvi2tty")
+	 ((output-dvi style-pstricks)
+	  "dvips and gv")
+	 (output-dvi "xdvi")
+	 (output-pdf "Okular")
+	 (output-html "xdg-open"))))
  '(package-selected-packages
    (quote
-	(impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package)))
+	(auctex js2-mode impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package)))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
