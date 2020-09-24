@@ -1,3 +1,31 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Enable colors 
+autoload -U colors && colors
+
+
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)               # Include hidden files.
+
+
+# Custom ZSH Binds
+bindkey '^ ' autosuggest-accept
+
+[ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
+
 
 M2_HOME=/opt/apache-maven-3.6.3
 export PATH=$PATH:$M2_HOME/bin
@@ -11,3 +39,13 @@ alias tomcat='/opt/apache-tomcat-8.0.28/bin/catalina.sh'
 alias emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
 
 # export PATH=$PATH:/Users/aurelien/eclipse/java-2020-06/Eclipse.app/Contents/Mac
+
+
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source /usr/share/autojump/autojump.zsh 2>/dev/null
+POWERLINE_HOME=/opt/powerlevel10k/
+source $POWERLINE_HOME/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
