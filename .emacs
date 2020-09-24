@@ -65,7 +65,7 @@
 (electric-pair-mode)
 (show-paren-mode 1)
 
-;; Make sure diminish is present
+;; Do not clutter the modeline
 (use-package diminish
   :ensure t)
 
@@ -76,11 +76,51 @@
   :config
   (which-key-mode))
 
+;; CRUX
+(use-package crux
+  :ensure t
+  :bind (
+		 ("C-k" . crux-smart-kill-line)
+		 ("C-c I" . crux-find-user-init-file)
+		 ("C-c S" . crux-find-shell-init-file)
+		 ("C-a" . crux-move-beginning-of-line)))
+
+(defun copy-buffer()
+  "Copy the whole buffer to clipboard."
+  (interactive)
+  (kill-new (buffer-string))
+  (message "Buffer copied to clipboard"))
+
+(global-set-key (kbd "C-x H") 'copy-buffer)
+
 ;; Theme. Maybe check gruvbox
 (use-package darktooth-theme
   :ensure t
   :config
   (load-theme 'darktooth t))
+;; (use-package nord-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'nord t))
+
+(use-package org
+  :ensure t
+  :config
+  (setq org-src-tab-acts-natively t
+		org-hide-emphasis-markers t
+		org-hide-leading-stars t)
+  (add-hook 'org-mode-hook (lambda () (setq fill-column 100
+											olivetti-body-width 100))))
+
+;; Pretty bullets in org mode
+(use-package org-superstar
+  :ensure t
+  :hook (org-mode . org-superstar-mode))
+
+;; Nice centered view
+(use-package olivetti
+  :ensure t
+  :hook (org-mode . olivetti-mode))
 
 ;; Ido for easy completion
 (use-package ido
@@ -111,8 +151,8 @@
 (use-package shell-pop
   :ensure t
   :bind (("C-z" . shell-pop)
-	 ("C-x z" . shell-pop)
-	 ("C-c C-z" . shell-pop))
+		 ("C-x z" . shell-pop)
+		 ("C-c C-z" . shell-pop))
   :config
   (setq shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
@@ -290,8 +330,8 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
   :mode (("\\.js\\'" . js2-mode))
   :commands (j2-mode)
   :config
-  (setq js-indent-level 2)
-  (setq js2-indent-level 2))
+  (setq js-indent-level 4)
+  (setq js2-indent-level 4))
 
 ;; Latex
 ;; auctex has weird interaction with use package
@@ -311,6 +351,14 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
 (setq TeX-view-program-list (quote (("Okular" "okular --unique %o#src:%n%b"))))
 ;; Voir https://tex.stackexchange.com/questions/161797/how-to-configure-emacs-and-auctex-to-perform-forward-and-inverse-search
 
+;; Mac os stuff
+(setq ns-alternate-modifier 'meta)
+(setq ns-right-alternate-modifier 'none)
+(setq mac-command-modifier 'meta)
+(setq-default default-directory "~/")
+(setq ns-pop-up-frames nil)
+(cd (getenv "HOME"))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -319,17 +367,16 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
  '(TeX-source-correlate-mode t)
  '(TeX-source-correlate-start-server t)
  '(TeX-view-program-selection
-   (quote
-	(((output-dvi has-no-display-manager)
+   '(((output-dvi has-no-display-manager)
 	  "dvi2tty")
 	 ((output-dvi style-pstricks)
 	  "dvips and gv")
 	 (output-dvi "xdvi")
 	 (output-pdf "Okular")
-	 (output-html "xdg-open"))))
+	 (output-html "xdg-open")))
+ '(org-agenda-files '("~/notes/notes.org"))
  '(package-selected-packages
-   (quote
-	(auctex js2-mode impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package)))
+   '(org-superstar olivetti oliveti nord-theme crux auctex js2-mode impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
