@@ -32,22 +32,23 @@ bindkey '^ ' autosuggest-accept
 
 
 M2_HOME=/opt/apache-maven-3.6.3
-export PATH=$PATH:$M2_HOME/bin
-
 ANT_HOME=/opt/apache-ant-1.10.8
+
+
+export PATH=$PATH:$M2_HOME/bin
 export PATH=$PATH:$ANT_HOME/bin
 
 export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/'
 alias tomcat='/opt/apache-tomcat-8.0.28/bin/catalina.sh' 
 # For some reason emacs do not work
 alias emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
+export EDITOR=/Applications/Emacs.app/Contents/MacOS/Emacs
 
-# export PATH=$PATH:/Users/aurelien/eclipse/java-2020-06/Eclipse.app/Contents/Mac
+export PATH=$PATH:$HOME/go/bin/
 
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-source /usr/share/autojump/autojump.zsh 2>/dev/null
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 POWERLINE_HOME=/opt/powerlevel10k/
 source $POWERLINE_HOME/powerlevel10k.zsh-theme
 
