@@ -18,6 +18,11 @@
 (eval-when-compile
   (require 'use-package))
 ; (setq use-package-compute-statistics t)
+(use-package exec-path-from-shell
+  :ensure t)
+
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 
 ;; Misc
 (setq require-final-newline 't)
@@ -352,7 +357,7 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
 ;; Voir https://tex.stackexchange.com/questions/161797/how-to-configure-emacs-and-auctex-to-perform-forward-and-inverse-search
 
 ;; Mac os stuff
-(setq ns-alternate-modifier 'meta)
+(setq ns-alternate-modifier 'super)
 (setq ns-right-alternate-modifier 'none)
 (setq mac-command-modifier 'meta)
 (setq-default default-directory "~/")
@@ -376,7 +381,7 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
 	 (output-html "xdg-open")))
  '(org-agenda-files '("~/notes/notes.org"))
  '(package-selected-packages
-   '(org-superstar olivetti oliveti nord-theme crux auctex js2-mode impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package))
+   '(exec-path-from-shell org-superstar olivetti oliveti nord-theme crux auctex js2-mode impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
