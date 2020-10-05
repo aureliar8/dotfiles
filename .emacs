@@ -125,7 +125,8 @@
 ;; Nice centered view
 (use-package olivetti
   :ensure t
-  :hook (org-mode . olivetti-mode))
+  :hook (org-mode . olivetti-mode)
+  :config (define-key olivetti-mode-map (kbd "C-c |") nil))
 
 ;; Ido for easy completion
 (use-package ido
@@ -205,6 +206,13 @@
   :ensure t
   :bind
   ("C-=" . er/expand-region))
+
+;; Multiple cursors
+(use-package multiple-cursors
+  :ensure t
+  :bind
+  ("C->" . mc/mark-next-like-this)
+  ("C-s->" . mc/edit-lines))
 
 ;; Project wide interactions
 (use-package projectile
@@ -381,7 +389,7 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
 	 (output-html "xdg-open")))
  '(org-agenda-files '("~/notes/notes.org"))
  '(package-selected-packages
-   '(exec-path-from-shell org-superstar olivetti oliveti nord-theme crux auctex js2-mode impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package))
+   '(multiple-cursors exec-path-from-shell org-superstar olivetti oliveti nord-theme crux auctex js2-mode impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
