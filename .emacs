@@ -388,7 +388,6 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
 (setq mac-command-modifier 'meta)
 (setq-default default-directory "~/")
 (setq ns-pop-up-frames nil) 
-(global-set-key (kbd "M-(") "[")
 (cd (getenv "HOME"))
 
 (custom-set-variables
