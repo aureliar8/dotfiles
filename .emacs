@@ -38,7 +38,12 @@
 (global-unset-key (kbd "C-x DEL"))
 (global-unset-key (kbd "C-c C-z"))
 (global-unset-key (kbd "C-x C-z"))
+(windmove-default-keybindings 'super)
+(global-set-key [f6] 'recompile)
 ; (global-set-key (kbd "C-z") 'shell)
+
+;; Compilation
+(setq compilation-scroll-output 'first-error)
 
 (global-set-key
   (kbd "<f5>")
@@ -222,6 +227,9 @@
   ("C-c p" . projectile-command-map)
   :config
   (projectile-mode 1))
+
+(use-package ripgrep
+  :ensure t )
 ;; Snippets !
 (use-package yasnippet
   :ensure t
@@ -292,6 +300,9 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
 
+(use-package dockerfile-mode
+  :ensure t
+  )
 (use-package go-mode
   :ensure t
   :hook (go-mode. lambda ()
@@ -364,12 +375,20 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
 (setq TeX-view-program-list (quote (("Okular" "okular --unique %o#src:%n%b"))))
 ;; Voir https://tex.stackexchange.com/questions/161797/how-to-configure-emacs-and-auctex-to-perform-forward-and-inverse-search
 
+(org-babel-do-load-languages 'org-babel-load-languages
+    '(
+        (shell . t)
+    )
+)
 ;; Mac os stuff
+;;On some external keyboard right and left keys are swapped
+(setq mac-right-option-modifier 'super)
 (setq ns-alternate-modifier 'super)
 (setq ns-right-alternate-modifier 'none)
 (setq mac-command-modifier 'meta)
 (setq-default default-directory "~/")
-(setq ns-pop-up-frames nil)
+(setq ns-pop-up-frames nil) 
+(global-set-key (kbd "M-(") "[")
 (cd (getenv "HOME"))
 
 (custom-set-variables
@@ -388,8 +407,9 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
 	 (output-pdf "Okular")
 	 (output-html "xdg-open")))
  '(org-agenda-files '("~/notes/notes.org"))
+ '(org-export-backends '(ascii html icalendar latex md odt))
  '(package-selected-packages
-   '(multiple-cursors exec-path-from-shell org-superstar olivetti oliveti nord-theme crux auctex js2-mode impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package))
+   '(ripgrep dockerfile-mode multiple-cursors exec-path-from-shell org-superstar olivetti oliveti nord-theme crux auctex js2-mode impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
