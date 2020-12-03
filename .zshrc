@@ -24,6 +24,10 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)               # Include hidden files.
 
+autoload -U bashcompinit
+bashcompinit
+
+#source /usr/local/etc/bash_completion.d/*
 
 # Custom ZSH Binds
 bindkey '^ ' autosuggest-accept
