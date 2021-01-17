@@ -1,4 +1,4 @@
-;; Raise gc threshold for init time
+;; Raise gc threshold for init
 (setq gc-cons-threshold 100000000)
 (add-hook 'after-init-hook
 	  (lambda() (setq gc-cons-threshold 67108864))) ; 64 mb
@@ -18,11 +18,10 @@
 (eval-when-compile
   (require 'use-package))
 ; (setq use-package-compute-statistics t)
-(use-package exec-path-from-shell
-  :ensure t)
 
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
+(use-package exec-path-from-shell
+  :ensure t
+  :if (memq window-system '(mac ns x)))
 
 ;; Misc
 (setq require-final-newline 't)
@@ -277,9 +276,14 @@
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
-  :hook (go-mode . lsp-deferred)
+  :hook ((go-mode . lsp-deferred)
+		 (lsp-mode . (lambda ()
+					   (let ((lsp-keymap-prefix "C-l"))
+						 (lsp-enable-which-key-integration)))))
   :config
-  (setq lsp-auto-guess-root t))
+  ;;(setq lsp-auto-guess-root t)
+  (define-key lsp-mode-map (kbd "C-l") lsp-command-map))
+
 
 (defun lsp-go-install-save-hooks ()
   "Setup before save hooks for go mode."
@@ -357,6 +361,7 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
   (setq js-indent-level 4)
   (setq js2-indent-level 4))
 
+
 ;; Latex
 ;; auctex has weird interaction with use package
 (use-package auctex
@@ -389,27 +394,13 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
 (setq-default default-directory "~/")
 (setq ns-pop-up-frames nil) 
 (cd (getenv "HOME"))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(TeX-source-correlate-mode t)
- '(TeX-source-correlate-start-server t)
- '(TeX-view-program-selection
-   '(((output-dvi has-no-display-manager)
-	  "dvi2tty")
-	 ((output-dvi style-pstricks)
-	  "dvips and gv")
-	 (output-dvi "xdvi")
-	 (output-pdf "Okular")
-	 (output-html "xdg-open")))
- '(org-agenda-files '("~/notes/notes.org"))
- '(org-export-backends '(ascii html icalendar latex md odt))
  '(package-selected-packages
-   '(ripgrep dockerfile-mode multiple-cursors exec-path-from-shell org-superstar olivetti oliveti nord-theme crux auctex js2-mode impatient-mode emmet-mode web-mode git-commit-insert-issue yaml-mode yasnippet-snippets yasnippet darktooth-theme darktooh-theme company-quickhelp company which-key flycheck diminish projectile expand-region magit go-mode markdown-mode ido-vertical-mode use-package))
- '(tab-width 4))
+   '(exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
