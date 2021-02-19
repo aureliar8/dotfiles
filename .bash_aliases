@@ -2,7 +2,8 @@ alias o='xdg-open'
 alias c='clear'
 alias tree='tree -C'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
+alias mci='mvn clean install'
+alias mvne='mvn eclipse:clean eclipse:eclipse' 
 if command -v exa &>/dev/null
 then
 	alias ls='exa -a --color=always --group-directories-first' # my preferred listing
@@ -42,3 +43,8 @@ ex ()
   fi
 }
 
+
+rqtunnel ()
+{
+	ssh -L "90$1":localhost:9001 "srv$1" -N
+}
