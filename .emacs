@@ -21,8 +21,10 @@
 
 (use-package exec-path-from-shell
   :ensure t
-  :if (memq window-system '(mac ns x)))
-
+  :if (memq window-system '(mac ns x))
+  :config
+  (setq exec-path-from-shell-variables '("PATH" "GOPATH"))
+  (exec-path-from-shell-initialize))
 ;; Misc
 (setq require-final-newline 't)
 (setq-default create-lockfiles nil)
@@ -309,8 +311,7 @@
   )
 (use-package go-mode
   :ensure t
-  :hook (go-mode. lambda ()
-		  (setq tab-width 4)))
+  :hook (go-mode . (lambda() (setq tab-width 4))))
 
 (use-package yaml-mode
   :ensure t)
