@@ -42,6 +42,7 @@ M2_HOME=/opt/apache-maven-3.6.3
 ANT_HOME=/opt/apache-ant-1.10.8
 
 
+
 export PATH=$PATH:$M2_HOME/bin
 export PATH=$PATH:$ANT_HOME/bin
 
@@ -59,5 +60,9 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/d
 POWERLINE_HOME=/opt/powerlevel10k/
 source $POWERLINE_HOME/powerlevel10k.zsh-theme
 
+setTitle(){
+    echo -e "\033];$(basename "$(pwd)")\007"
+}
+precmd_functions+=setTitle
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
