@@ -295,7 +295,8 @@
 
 (use-package lsp-ui
   :ensure t
-  :commands lsp-ui-mode)
+  :commands lsp-ui-mode
+  :bind ("<f7>" . lsp-ui-flycheck-list))
 
 ;; Language specific packages
 (use-package markdown-mode
