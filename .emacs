@@ -309,11 +309,18 @@
   :init (setq markdown-command "pandoc"))
 
 (use-package dockerfile-mode
-  :ensure t
-  )
+  :ensure t)
+
+(use-package go-impl
+;; go-impl need a patch to work https://github.com/emacsorphanage/go-impl/pull/9/files
+  :ensure t)
+
 (use-package go-mode
   :ensure t
-  :hook (go-mode . (lambda() (setq tab-width 4))))
+  :after go-impl
+  :bind ("C-c i" . go-impl)
+  :hook (go-mode . (lambda() (setq tab-width 4)))
+  :config )
 
 (use-package yaml-mode
   :ensure t)
@@ -403,7 +410,7 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex)))
+   '(go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
