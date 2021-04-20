@@ -17,7 +17,7 @@
 
 (eval-when-compile
   (require 'use-package))
-; (setq use-package-compute-statistics t)
+					; (setq use-package-compute-statistics t)
 
 (use-package exec-path-from-shell
   :ensure t
@@ -41,23 +41,23 @@
 (global-unset-key (kbd "C-x C-z"))
 (windmove-default-keybindings 'super)
 (global-set-key [f6] 'recompile)
-; (global-set-key (kbd "C-z") 'shell)
+					; (global-set-key (kbd "C-z") 'shell)
 
 ;; Compilation
 (setq compilation-scroll-output 'first-error)
 
 (global-set-key
-  (kbd "<f5>")
-  (lambda (&optional force-reverting)
-    "Interactive call to revert-buffer. Ignoring the auto-save
+ (kbd "<f5>")
+ (lambda (&optional force-reverting)
+   "Interactive call to revert-buffer. Ignoring the auto-save
  file and not requesting for confirmation. When the current buffer
  is modified, the command refuses to revert it, unless you specify
  the optional argument: force-reverting to true."
-    (interactive "P")
-    ;;(message "force-reverting value is %s" force-reverting)
-    (if (or force-reverting (not (buffer-modified-p)))
-        (revert-buffer :ignore-auto :noconfirm)
-      (error "The buffer has been modified"))))
+   (interactive "P")
+   ;;(message "force-reverting value is %s" force-reverting)
+   (if (or force-reverting (not (buffer-modified-p)))
+       (revert-buffer :ignore-auto :noconfirm)
+     (error "The buffer has been modified"))))
 
 ;; Minimalist interface
 (setq inhibit-startup-screen t)
@@ -91,10 +91,10 @@
 (use-package crux
   :ensure t
   :bind (
-		 ("C-k" . crux-smart-kill-line)
-		 ("C-c I" . crux-find-user-init-file)
-		 ("C-c S" . crux-find-shell-init-file)
-		 ("C-a" . crux-move-beginning-of-line)))
+	 ("C-k" . crux-smart-kill-line)
+	 ("C-c I" . crux-find-user-init-file)
+	 ("C-c S" . crux-find-shell-init-file)
+	 ("C-a" . crux-move-beginning-of-line)))
 
 (defun copy-buffer()
   "Copy the whole buffer to clipboard."
@@ -118,10 +118,10 @@
   :ensure t
   :config
   (setq org-src-tab-acts-natively t
-		org-hide-emphasis-markers t
-		org-hide-leading-stars t)
+	org-hide-emphasis-markers t
+	org-hide-leading-stars t)
   (add-hook 'org-mode-hook (lambda () (setq fill-column 100
-											olivetti-body-width 100))))
+					    olivetti-body-width 100))))
 
 ;; Pretty bullets in org mode
 (use-package org-superstar
@@ -144,14 +144,14 @@
   (setq ido-auto-merge-work-directories-length -1)
   (ido-mode 1)
   (global-set-key
-     "\M-x"
-     (lambda ()
-       (interactive)
-       (call-interactively
-        (intern
-         (ido-completing-read
-          "M-x "
-          (all-completions "" obarray 'commandp)))))))
+   "\M-x"
+   (lambda ()
+     (interactive)
+     (call-interactively
+      (intern
+       (ido-completing-read
+        "M-x "
+        (all-completions "" obarray 'commandp)))))))
 
 (use-package ido-vertical-mode
   :ensure t
@@ -163,8 +163,8 @@
 (use-package shell-pop
   :ensure t
   :bind (("C-z" . shell-pop)
-		 ("C-x z" . shell-pop)
-		 ("C-c C-z" . shell-pop))
+	 ("C-x z" . shell-pop)
+	 ("C-c C-z" . shell-pop))
   :config
   (setq shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
@@ -280,9 +280,9 @@
   :ensure t
   :commands (lsp lsp-deferred)
   :hook ((go-mode . lsp-deferred)
-		 (lsp-mode . (lambda ()
-					   (let ((lsp-keymap-prefix "C-l"))
-						 (lsp-enable-which-key-integration)))))
+	 (lsp-mode . (lambda ()
+		       (let ((lsp-keymap-prefix "C-l"))
+			 (lsp-enable-which-key-integration)))))
   :config
   ;;(setq lsp-auto-guess-root t)
   (define-key lsp-mode-map (kbd "C-l") lsp-command-map))
@@ -290,8 +290,8 @@
 
 (defun lsp-go-install-save-hooks ()
   "Setup before save hooks for go mode."
-    (add-hook 'before-save-hook #'lsp-format-buffer t t)
-    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
 (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
 (use-package lsp-ui
@@ -340,21 +340,21 @@
   :ensure t
   :config
   (defun start-impatient ()
-  "Starts the `simple-httpd' server if it is not already running. Turns
+    "Starts the `simple-httpd' server if it is not already running. Turns
 on `impatient-mode' for the current buffer. Opens firefox to see it"
-  (interactive)
-  (unless (get-process "httpd")
-    (message "starting httpd server...")
-    (httpd-start))
-  (impatient-mode)
-  (start-process-shell-command
-   ""
-   nil
-   (concat
-    "firefox localhost:"
-    (number-to-string httpd-port)
-    "/imp/live/"
-    (buffer-name)))))
+    (interactive)
+    (unless (get-process "httpd")
+      (message "starting httpd server...")
+      (httpd-start))
+    (impatient-mode)
+    (start-process-shell-command
+     ""
+     nil
+     (concat
+      "firefox localhost:"
+      (number-to-string httpd-port)
+      "/imp/live/"
+      (buffer-name)))))
 
 (use-package js2-mode
   :ensure t
@@ -384,10 +384,10 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
 ;; Voir https://tex.stackexchange.com/questions/161797/how-to-configure-emacs-and-auctex-to-perform-forward-and-inverse-search
 
 (org-babel-do-load-languages 'org-babel-load-languages
-    '(
-        (shell . t)
-    )
-)
+			     '(
+			       (shell . t)
+			       )
+			     )
 ;; Mac os stuff
 ;;On some external keyboard right and left keys are swapped
 (setq mac-right-option-modifier 'super)
