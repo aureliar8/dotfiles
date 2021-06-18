@@ -51,9 +51,8 @@ alias tomcat='/opt/apache-tomcat-8.0.28/bin/catalina.sh'
 # For some reason emacs do not work
 alias emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
 export EDITOR=/Applications/Emacs.app/Contents/MacOS/Emacs
-
 export PATH=$PATH:$HOME/go/bin/
-
+export PATH=$HOME/script:$PATH
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
@@ -66,3 +65,6 @@ setTitle(){
 precmd_functions+=setTitle
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/vault vault
