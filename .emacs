@@ -119,7 +119,8 @@
   :config
   (setq org-src-tab-acts-natively t
 	org-hide-emphasis-markers t
-	org-hide-leading-stars t)
+	org-hide-leading-stars t
+	org-todo-keywords '((sequence "TODO" "WAITING" "|" "DONE")))
   (add-hook 'org-mode-hook (lambda () (setq fill-column 100
 					    olivetti-body-width 100))))
 
@@ -325,6 +326,8 @@
 (use-package yaml-mode
   :ensure t)
 
+(use-package hcl-mode
+  :ensure t)
 ;;; Web related stuff
 (use-package web-mode
   :ensure t
@@ -410,10 +413,11 @@ on `impatient-mode' for the current buffer. Opens firefox to see it"
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex)))
+   '(hcl-mode go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'upcase-region 'disabled nil)
