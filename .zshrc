@@ -12,13 +12,10 @@ fi
 # Enable colors 
 autoload -U colors && colors
 
-
 export HISTSIZE=100000000
 export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
-
-
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -37,34 +34,15 @@ bindkey '^ ' autosuggest-accept
 
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
 
-
-M2_HOME=/opt/apache-maven-3.6.3
-ANT_HOME=/opt/apache-ant-1.10.8
-
-
-
-export PATH=$PATH:$M2_HOME/bin
-export PATH=$PATH:$ANT_HOME/bin
-
-export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/'
-alias tomcat='/opt/apache-tomcat-8.0.28/bin/catalina.sh' 
-# For some reason emacs do not work
-alias emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
-export EDITOR=/Applications/Emacs.app/Contents/MacOS/Emacs
 export PATH=$PATH:$HOME/go/bin/
 export PATH=$HOME/script:$PATH
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-POWERLINE_HOME=/opt/powerlevel10k/
+POWERLINE_HOME=$HOME/powerlevel10k
 source $POWERLINE_HOME/powerlevel10k.zsh-theme
-
-setTitle(){
-    echo -e "\033];$(basename "$(pwd)")\007"
-}
-precmd_functions+=setTitle
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/vault vault
+source ~/powerlevel10k/powerlevel10k.zsh-theme
