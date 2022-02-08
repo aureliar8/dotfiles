@@ -7,7 +7,6 @@ fi
 
 #  Dependancies You Need for this Config
 # zsh-syntax-highlighting - syntax highlighting for ZSH in standard repos
-# autojump - jump to directories with j or jc for child or jo to open in file manager
 # zsh-autosuggestions - Suggestions based on your history
 # Enable colors 
 autoload -U colors && colors
@@ -37,12 +36,11 @@ bindkey '^ ' autosuggest-accept
 export PATH=$PATH:$HOME/go/bin/
 export PATH=$HOME/script:$PATH
 
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-POWERLINE_HOME=$HOME/powerlevel10k
+source /opt/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+POWERLINE_HOME=/opt/powerlevel10k
 source $POWERLINE_HOME/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 autoload -U +X bashcompinit && bashcompinit
-source ~/powerlevel10k/powerlevel10k.zsh-theme
