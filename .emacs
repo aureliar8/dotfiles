@@ -17,14 +17,8 @@
 
 (eval-when-compile
   (require 'use-package))
-					; (setq use-package-compute-statistics t)
+;; (setq use-package-compute-statistics t)
 
-(use-package exec-path-from-shell
-  :ensure t
-  :if (memq window-system '(mac ns x))
-  :config
-  (setq exec-path-from-shell-variables '("PATH" "GOPATH"))
-  (exec-path-from-shell-initialize))
 ;; Misc
 (setq require-final-newline 't)
 (setq-default create-lockfiles nil)
@@ -39,9 +33,8 @@
 (global-unset-key (kbd "C-x DEL"))
 (global-unset-key (kbd "C-c C-z"))
 (global-unset-key (kbd "C-x C-z"))
-(windmove-default-keybindings 'super)
+;;(windmove-default-keybindings 'super)
 (global-set-key [f6] 'recompile)
-					; (global-set-key (kbd "C-z") 'shell)
 
 ;; Compilation
 (setq compilation-scroll-output 'first-error)
@@ -109,6 +102,7 @@
   :ensure t
   :config
   (load-theme 'darktooth t))
+
 ;; (use-package nord-theme
 ;;   :ensure t
 ;;   :config
@@ -233,6 +227,7 @@
 
 (use-package ripgrep
   :ensure t )
+
 ;; Snippets !
 (use-package yasnippet
   :ensure t
@@ -273,10 +268,6 @@
   :defer t
   :init (company-quickhelp-mode 1))
 
-(use-package company-lsp
-  :ensure t
-  :commands company-lsp)
-
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
@@ -313,7 +304,7 @@
   :ensure t)
 
 (use-package go-impl
-;; go-impl need a patch to work https://github.com/emacsorphanage/go-impl/pull/9/files
+  ;; go-impl need a patch to work https://github.com/emacsorphanage/go-impl/pull/9/files
   :ensure t)
 
 (use-package go-mode
@@ -336,84 +327,76 @@
   (setq web-mode-enable-auto-closing t
 	web-mode-enable-auto-quoting t))
 
-(use-package emmet-mode
-  :ensure t
-  :hook (web-mode . emmet-mode))
+;; (use-package emmet-mode
+;;   :ensure t
+;;   :hook (web-mode . emmet-mode))
 
-(use-package simple-httpd
-  :ensure t
-  :config
-  (setq httpd-port 5656))
+;; (use-package simple-httpd
+;;   :ensure t
+;;   :config
+;;   (setq httpd-port 5656))
 
 
-(use-package impatient-mode
-  :ensure t
-  :config
-  (defun start-impatient ()
-    "Starts the `simple-httpd' server if it is not already running. Turns
-on `impatient-mode' for the current buffer. Opens firefox to see it"
-    (interactive)
-    (unless (get-process "httpd")
-      (message "starting httpd server...")
-      (httpd-start))
-    (impatient-mode)
-    (start-process-shell-command
-     ""
-     nil
-     (concat
-      "firefox localhost:"
-      (number-to-string httpd-port)
-      "/imp/live/"
-      (buffer-name)))))
+;; (use-package impatient-mode
+;;   :ensure t
+;;   :config
+;;   (defun start-impatient ()
+;;     "Starts the `simple-httpd' server if it is not already running. Turns
+;; on `impatient-mode' for the current buffer. Opens firefox to see it"
+;;     (interactive)
+;;     (unless (get-process "httpd")
+;;       (message "starting httpd server...")
+;;       (httpd-start))
+;;     (impatient-mode)
+;;     (start-process-shell-command
+;;      ""
+;;      nil
+;;      (concat
+;;       "firefox localhost:"
+;;       (number-to-string httpd-port)
+;;       "/imp/live/"
+;;       (buffer-name)))))
 
-(use-package js2-mode
-  :ensure t
-  :mode (("\\.js\\'" . js2-mode))
-  :commands (j2-mode)
-  :config
-  (setq js-indent-level 4)
-  (setq js2-indent-level 4))
+;; (use-package js2-mode
+;;   :ensure t
+;;   :mode (("\\.js\\'" . js2-mode))
+;;   :commands (j2-mode)
+;;   :config
+;;   (setq js-indent-level 4)
+;;   (setq js2-indent-level 4))
 
 
 ;; Latex
 ;; auctex has weird interaction with use package
-(use-package auctex
-  :ensure t
-  :defer t)
-(add-hook 'latex-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
+;; (use-package auctex
+;;   :ensure t
+;;   :defer t)
+;; (add-hook 'latex-mode-hook 'flyspell-mode)
+;; (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 
-(setq TeX-save-query nil)
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)       ;enable document parsing
-(setq reftex-plug-into-AUCTeX t)
-(setq TeX-PDF-mode t)
-(setq TeX-view-program-list (quote (("Okular" "okular --unique %o#src:%n%b"))))
-;; Voir https://tex.stackexchange.com/questions/161797/how-to-configure-emacs-and-auctex-to-perform-forward-and-inverse-search
+;; (setq TeX-save-query nil)
+;; (setq TeX-auto-save t)
+;; (setq TeX-parse-self t)       ;enable document parsing
+;; (setq reftex-plug-into-AUCTeX t)
+;; (setq TeX-PDF-mode t)
+;; (setq TeX-view-program-list (quote (("Okular" "okular --unique %o#src:%n%b"))))
+;; ;; Voir https://tex.stackexchange.com/questions/161797/how-to-configure-emacs-and-auctex-to-perform-forward-and-inverse-search
 
-(org-babel-do-load-languages 'org-babel-load-languages
-			     '(
-			       (shell . t)
-			       )
-			     )
-;; Mac os stuff
-;;On some external keyboard right and left keys are swapped
-(setq mac-right-option-modifier 'super)
-(setq ns-alternate-modifier 'super)
-(setq ns-right-alternate-modifier 'none)
-(setq mac-command-modifier 'meta)
-(setq-default default-directory "~/")
-(setq ns-pop-up-frames nil) 
-(cd (getenv "HOME"))
+;; (org-babel-do-load-languages 'org-babel-load-languages
+;; 			     '(
+;; 			       (shell . t)
+;; 			       )
+;; 			     )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(hcl-mode go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex)))
+   (quote
+    (hcl-mode go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
