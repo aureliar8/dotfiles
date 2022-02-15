@@ -11,6 +11,7 @@ fi
 # Enable colors 
 autoload -U colors && colors
 
+export HISTFILE=$HOME/.zhistory
 export HISTSIZE=100000000
 export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
@@ -32,9 +33,6 @@ bashcompinit
 bindkey '^ ' autosuggest-accept
 
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
-
-export PATH=$PATH:$HOME/go/bin/
-export PATH=$HOME/script:$PATH
 
 source /opt/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
