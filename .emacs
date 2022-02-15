@@ -33,7 +33,7 @@
 (global-unset-key (kbd "C-x DEL"))
 (global-unset-key (kbd "C-c C-z"))
 (global-unset-key (kbd "C-x C-z"))
-;;(windmove-default-keybindings 'super)
+(windmove-default-keybindings 'meta)
 (global-set-key [f6] 'recompile)
 
 ;; Compilation
@@ -167,7 +167,8 @@
 ;; Git interface
 (use-package magit
   :ensure t
-  :bind ("C-x g" . magit-status))
+  :bind (("C-x g" . magit-status)
+	 ("C-x b" . magit-blame)))
 
 ;; Syntax checker for natural language
 (use-package flyspell
@@ -199,6 +200,7 @@
 (use-package flycheck
   :ensure t
   :diminish
+  :bind ("C-n" . flycheck-next-error)
   :defer t
   :hook
   (prog-mode . flycheck-mode))
@@ -221,7 +223,8 @@
   :ensure t
   :diminish
   :bind
-  ("C-c p" . projectile-command-map)
+  (("C-c p" . projectile-command-map)
+   ("C-p" . projectile-command-map))
   :config
   (projectile-mode 1))
 
@@ -311,10 +314,13 @@
   :ensure t
   :after go-impl
   :bind ("C-c i" . go-impl)
-  :hook (go-mode . (lambda() (setq tab-width 4)))
-  :config )
+  :hook (go-mode . (lambda() (setq tab-width 4))))
 
 (use-package yaml-mode
+  :ensure t
+  :config (setq yaml-indent-offset 4))
+
+(use-package protobuf-mode
   :ensure t)
 
 (use-package hcl-mode
@@ -394,9 +400,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(lsp-ui-doc-show-with-cursor t)
+ '(lsp-ui-doc-text-scale-level -2)
  '(package-selected-packages
    (quote
-    (hcl-mode go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex))))
+    (jenkinsfile-mode hcl-mode go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex)))
+ '(projectile-globally-ignored-directories
+   (quote
+    (".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd" "vendor"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
