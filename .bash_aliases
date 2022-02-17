@@ -45,7 +45,8 @@ ex ()
 }
 
 
-rqtunnel ()
-{
-	ssh -L "90$1":localhost:9001 "srv$1" -N
+function toolbox() {
+    docker run --rm -ti -v ~/.cloudstack.ini:/root/.cloudstack.ini -v ~/.config/exoscale/toolbox:/root/.config/exoscale/toolbox/ registry.internal.exoscale.ch/exoscale/toolbox:latest $*
 }
+
+alias findhost='ssh exoadmin@infra-dns003.gv2.p.exoscale.net findhost $1'
