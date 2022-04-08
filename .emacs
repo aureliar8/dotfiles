@@ -3,6 +3,10 @@
 (add-hook 'after-init-hook
 	  (lambda() (setq gc-cons-threshold 67108864))) ; 64 mb
 
+;; For performance reading lsp responses
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
@@ -170,6 +174,21 @@
   :bind (("C-x g" . magit-status)
 	 ("C-x b" . magit-blame)))
 
+(use-package forge
+  :ensure t
+  :after magit
+  :config (setq auth-sources '("~/.authinfo")))
+
+(use-package code-review
+  :ensure t)
+
+;; Quick github links to code
+(use-package git-link
+  :ensure t
+  :bind ("C-c g l" . git-link)
+  ;; Otherwise preview links doesn't work in github conversations
+  :config (setq git-link-use-commit t))
+
 ;; Syntax checker for natural language
 (use-package flyspell
   :ensure t
@@ -292,7 +311,8 @@
 (use-package lsp-ui
   :ensure t
   :commands lsp-ui-mode
-  :bind ("<f7>" . lsp-ui-flycheck-list))
+  :bind (("<f7>" . lsp-ui-flycheck-list)
+	 ("<f8>" . lsp-ui-imenu	)))
 
 ;; Language specific packages
 (use-package markdown-mode
@@ -318,10 +338,11 @@
 
 (use-package yaml-mode
   :ensure t
-  :config (setq yaml-indent-offset 4))
+  :config (setq yaml-indent-offset 2))
 
 (use-package protobuf-mode
-  :ensure t)
+  :ensure t
+  :config (setq c-basic-offset 4))
 
 (use-package hcl-mode
   :ensure t)
@@ -403,11 +424,10 @@
  '(lsp-ui-doc-show-with-cursor t)
  '(lsp-ui-doc-text-scale-level -2)
  '(package-selected-packages
-   (quote
-    (jenkinsfile-mode hcl-mode go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex)))
+   '(puppet-mode code-review github-review forge git-link all-the-icons magit-popup jenkinsfile-mode hcl-mode go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex))
  '(projectile-globally-ignored-directories
-   (quote
-    (".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd" "vendor"))))
+   '(".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd" "vendor"))
+ '(warning-suppress-log-types '((comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
