@@ -64,6 +64,7 @@
 (setq inhibit-startup-screen t)
 (setq visible-bell  t)
 (setq inhibit-splash-screen t)
+;; (setq tab-always-indent 'complete)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (setq frame-title-format "%b - Emacs")
@@ -273,19 +274,21 @@
   :hook (prog-mode . company-mode)
   :defer 2
   :config
-  (setq company-minimum-prefix-length 1
-	company-tooltip-align-annotations t
-	company-require-match 'never
-	company-idle-delay 0.1
-	company-tooltip-limit 10
-	company-selection-wrap-around t
-	company-transformers '(company-sort-by-occurrence)
-	company-dabbrev-downcase nil)
-  (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
-  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
-  (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
-  (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
-  (global-set-key "\M-/" 'company-complete))
+  (setq company-minimum-prefix-length 3)
+  (global-set-key (kbd "TAB") 'company-indent-or-complete-common))
+
+  ;; 	company-tooltip-align-annotations t
+  ;; 	company-require-match 'never
+  ;; 	company-idle-delay 0.1
+  ;; 	company-tooltip-limit 10
+  ;; 	company-selection-wrap-around t
+  ;; 	company-transformers '(company-sort-by-occurrence)
+  ;; 	company-dabbrev-downcase nil)
+  ;; (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
+  ;; (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+  ;; (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
+  ;; (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
+  ;; (global-set-key "\M-/" 'company-complete))
 
 ;; Pop up documentation for suggestions
 (use-package company-quickhelp
