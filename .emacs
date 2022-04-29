@@ -41,7 +41,7 @@
 (global-set-key [f6] 'recompile)
 
 ;; Compilation
-(setq compilation-scroll-output 'first-error)
+(setq compilation-scroll-output "scroll")
 
 (global-set-key
  (kbd "<f5>")
@@ -336,6 +336,9 @@
   :bind ("C-c i" . go-impl)
   :hook (go-mode . (lambda() (setq tab-width 4))))
 
+(use-package clojure-mode
+  :ensure t)
+
 (use-package yaml-mode
   :ensure t
   :config (setq yaml-indent-offset 2))
@@ -424,7 +427,7 @@
  '(lsp-ui-doc-show-with-cursor t)
  '(lsp-ui-doc-text-scale-level -2)
  '(package-selected-packages
-   '(puppet-mode code-review github-review forge git-link all-the-icons magit-popup jenkinsfile-mode hcl-mode go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key web-mode use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui js2-mode impatient-mode ido-vertical-mode go-mode flycheck expand-region emmet-mode dockerfile-mode diminish darktooth-theme crux company-quickhelp company-lsp auctex))
+   '(clojure-mode puppet-mode  forge git-link all-the-icons magit-popup jenkinsfile-mode hcl-mode go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui ido-vertical-mode go-mode flycheck expand-region dockerfile-mode diminish darktooth-theme crux company-quickhelp))
  '(projectile-globally-ignored-directories
    '(".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd" "vendor"))
  '(warning-suppress-log-types '((comp))))
