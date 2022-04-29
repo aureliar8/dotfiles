@@ -23,12 +23,16 @@
   (require 'use-package))
 ;; (setq use-package-compute-statistics t)
 
+
 ;; Misc
 (setq require-final-newline 't)
 (setq-default create-lockfiles nil)
 (setq select-enable-clipboard t)
 ;; Locate backups
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+;; customize file
+(setq custom-file "~/.config/emacs-custom.el")
+(load custom-file 'noerror)
 
 ;; Easier shortcut
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
@@ -349,92 +353,5 @@
 
 (use-package hcl-mode
   :ensure t)
-;;; Web related stuff
-(use-package web-mode
-  :ensure t
-  :mode ("\\.html$" . web-mode)
-  :config
-  (setq web-mode-enable-auto-closing t
-	web-mode-enable-auto-quoting t))
-
-;; (use-package emmet-mode
-;;   :ensure t
-;;   :hook (web-mode . emmet-mode))
-
-;; (use-package simple-httpd
-;;   :ensure t
-;;   :config
-;;   (setq httpd-port 5656))
 
 
-;; (use-package impatient-mode
-;;   :ensure t
-;;   :config
-;;   (defun start-impatient ()
-;;     "Starts the `simple-httpd' server if it is not already running. Turns
-;; on `impatient-mode' for the current buffer. Opens firefox to see it"
-;;     (interactive)
-;;     (unless (get-process "httpd")
-;;       (message "starting httpd server...")
-;;       (httpd-start))
-;;     (impatient-mode)
-;;     (start-process-shell-command
-;;      ""
-;;      nil
-;;      (concat
-;;       "firefox localhost:"
-;;       (number-to-string httpd-port)
-;;       "/imp/live/"
-;;       (buffer-name)))))
-
-;; (use-package js2-mode
-;;   :ensure t
-;;   :mode (("\\.js\\'" . js2-mode))
-;;   :commands (j2-mode)
-;;   :config
-;;   (setq js-indent-level 4)
-;;   (setq js2-indent-level 4))
-
-
-;; Latex
-;; auctex has weird interaction with use package
-;; (use-package auctex
-;;   :ensure t
-;;   :defer t)
-;; (add-hook 'latex-mode-hook 'flyspell-mode)
-;; (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
-
-
-;; (setq TeX-save-query nil)
-;; (setq TeX-auto-save t)
-;; (setq TeX-parse-self t)       ;enable document parsing
-;; (setq reftex-plug-into-AUCTeX t)
-;; (setq TeX-PDF-mode t)
-;; (setq TeX-view-program-list (quote (("Okular" "okular --unique %o#src:%n%b"))))
-;; ;; Voir https://tex.stackexchange.com/questions/161797/how-to-configure-emacs-and-auctex-to-perform-forward-and-inverse-search
-
-;; (org-babel-do-load-languages 'org-babel-load-languages
-;; 			     '(
-;; 			       (shell . t)
-;; 			       )
-;; 			     )
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(lsp-ui-doc-show-with-cursor t)
- '(lsp-ui-doc-text-scale-level -2)
- '(package-selected-packages
-   '(clojure-mode puppet-mode  forge git-link all-the-icons magit-popup jenkinsfile-mode hcl-mode go-impl protobuf-mode exec-path-from-shell yasnippet-snippets yaml-mode which-key use-package shell-pop ripgrep projectile org-superstar olivetti multiple-cursors magit lsp-ui ido-vertical-mode go-mode flycheck expand-region dockerfile-mode diminish darktooth-theme crux company-quickhelp))
- '(projectile-globally-ignored-directories
-   '(".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd" "vendor"))
- '(warning-suppress-log-types '((comp))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(put 'upcase-region 'disabled nil)
