@@ -11,6 +11,8 @@
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
 (package-initialize)
 
@@ -23,6 +25,9 @@
   (require 'use-package))
 ;; (setq use-package-compute-statistics t)
 
+(set-face-attribute 'default nil
+                    :font "JetBrains Mono"
+                    :height 120)
 
 ;; Misc
 (setq require-final-newline 't)
@@ -43,6 +48,7 @@
 (global-unset-key (kbd "C-x C-z"))
 (windmove-default-keybindings 'meta)
 (global-set-key [f6] 'recompile)
+(setq default-fill-column 100)
 
 ;; Compilation
 (setq compilation-scroll-output "scroll")
@@ -274,10 +280,12 @@
   :hook (prog-mode . company-mode)
   :defer 2
   :config
-  (setq company-minimum-prefix-length 3)
+  (setq
+   company-minimum-prefix-length 2
+   company-tooltip-align-annotations t)
   (global-set-key (kbd "TAB") 'company-indent-or-complete-common))
 
-  ;; 	company-tooltip-align-annotations t
+
   ;; 	company-require-match 'never
   ;; 	company-idle-delay 0.1
   ;; 	company-tooltip-limit 10
@@ -321,6 +329,9 @@
   :bind (("<f7>" . lsp-ui-flycheck-list)
 	 ("<f8>" . lsp-ui-imenu	)))
 
+(use-package lsp-treemacs
+  :ensure t)
+
 ;; Language specific packages
 (use-package markdown-mode
   :ensure t
@@ -344,7 +355,12 @@
   :hook (go-mode . (lambda() (setq tab-width 4))))
 
 (use-package clojure-mode
-  :ensure t)
+  :ensure t
+  :hook (clojure-mode . lsp))
+
+(use-package cider
+  :ensure t
+  :pin melpa-stable)
 
 (use-package yaml-mode
   :ensure t
