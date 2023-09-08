@@ -2,8 +2,6 @@ alias o='xdg-open'
 alias c='clear'
 alias tree='tree -C'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias mci='mvn clean install'
-alias mvne='mvn eclipse:clean eclipse:eclipse' 
 if command -v exa &>/dev/null
 then
 	alias ls='exa -a --color=always --group-directories-first' # my preferred listing
@@ -50,3 +48,19 @@ function toolbox() {
 }
 
 alias findhost='ssh exoadmin@infra-dns003.gv2.p.exoscale.net findhost $1'
+
+function tgo() {
+    tmp="$(mktemp -p /tmp -d "tgo_$(date +%Y%m%d)_XXXXXXXX")"
+    printf 'package main\n\nfunc main() {\n\n}\n' > "$tmp/main.go"
+    printf 'package main\nimport "testing"\nfunc TestMain(t *testing.T) {\n\n}\n\n' > "$tmp/main_test.go"
+    printf 'func BenchmarkMain(b *testing.B) {\n\tb.ReportAllocs()\n\tfor n := 0; n < b.N; n++ {\n\t}\n}\n' >> "$tmp/main_test.go"
+
+    printf 'module %s\n' "$(basename "$tmp")" > "$tmp/go.mod"
+    (
+        cd "$tmp"
+        emacs main.go main_test.go
+        echo "$tmp"
+    )
+}
+
+alias rg='rg --hidden'

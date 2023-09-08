@@ -12,7 +12,7 @@ fi
 autoload -U colors && colors
 
 export HISTFILE=$HOME/.zhistory
-export HISTSIZE=100000000
+export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
@@ -35,6 +35,7 @@ bindkey '^ ' autosuggest-accept
 
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
 
+source /home/aurelien/bin/zsh-fzf-history-search.zsh 
 source /opt/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 POWERLINE_HOME=/opt/powerlevel10k
@@ -43,3 +44,13 @@ source $POWERLINE_HOME/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 autoload -U +X bashcompinit && bashcompinit
+
+PATH=$PATH:$HOME/scripts
+
+complete -o nospace -C /usr/bin/terraform terraform
+export LIBVIRT_DEFAULT_URI="qemu:///system" 
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
