@@ -43,7 +43,7 @@
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 (global-set-key (kbd "C-o") 'other-window)
 (global-set-key (kbd "C-b") 'switch-to-buffer)
-(global-unset-key (kbd "C-x DEL"))
+(global-set-key (kbd "C-x DEL") 'whitespace-cleanup)
 (global-unset-key (kbd "C-c C-z"))
 (global-unset-key (kbd "C-x C-z"))
 (windmove-default-keybindings 'meta)
@@ -185,13 +185,13 @@
   :bind (("C-x g" . magit-status)
 	 ("C-x b" . magit-blame)))
 
-(use-package forge
-  :ensure t
-  :after magit
-  :config (setq auth-sources '("~/.authinfo")))
+;; (use-package forge
+;;   :ensure t
+;;   :after magit
+;;   :config (setq auth-sources '("~/.authinfo")))
 
-(use-package code-review
-  :ensure t)
+;; (use-package code-review
+;;   :ensure t)
 
 ;; Quick github links to code
 (use-package git-link
@@ -271,6 +271,7 @@
 
 (use-package yasnippet-snippets
   :ensure t
+;; Some of my go snippets like rne and iel aren't loaded
   :defer
   :after yasnippet)
 
@@ -356,7 +357,8 @@
 
 (use-package clojure-mode
   :ensure t
-  :hook (clojure-mode . lsp))
+  :hook ((clojure-mode . lsp)
+	 (before-save . lsp-format-buffer)))
 
 (use-package cider
   :ensure t
@@ -373,4 +375,6 @@
 (use-package hcl-mode
   :ensure t)
 
+(use-package puppet-mode
+  :ensure t)
 
