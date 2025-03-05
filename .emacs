@@ -48,7 +48,7 @@
 (global-unset-key (kbd "C-x C-z"))
 (windmove-default-keybindings 'meta)
 (global-set-key [f6] 'recompile)
-(setq default-fill-column 100)
+(setq-default fill-column 100)
 
 ;; Compilation
 (setq compilation-scroll-output "scroll")
@@ -233,7 +233,8 @@
   :bind ("C-n" . flycheck-next-error)
   :defer t
   :hook
-  (prog-mode . flycheck-mode))
+  (prog-mode . flycheck-mode)
+  (hledger-mode . flycheck-mode))
 
 ;; Easier region selection
 (use-package expand-region
@@ -315,6 +316,7 @@
 			 (lsp-enable-which-key-integration)))))
   :config
   ;;(setq lsp-auto-guess-root t)
+  (setq lsp-file-watch-threshold 2000)
   (define-key lsp-mode-map (kbd "C-l") lsp-command-map))
 
 
@@ -358,7 +360,8 @@
 (use-package clojure-mode
   :ensure t
   :hook ((clojure-mode . lsp)
-	 (before-save . lsp-format-buffer)))
+	 ;;(before-save . cider-format-buffer)
+	 ))
 
 (use-package cider
   :ensure t
@@ -377,4 +380,35 @@
 
 (use-package puppet-mode
   :ensure t)
+
+(use-package jenkinsfile-mode
+  :ensure t)
+
+(use-package rust-mode
+  :ensure t)
+
+(use-package earthfile-mode
+  :ensure t)
+
+(use-package terraform-mode
+  :ensure t)
+
+(add-hook 'html-mode-hook (lambda() (setq tab-width 2)))
+
+;; Compta
+(use-package hledger-mode
+  :ensure t
+  :mode ("\\.journal\\'" . hledger-mode)
+  :init
+  (add-hook 'hledger-mode-hook
+            (lambda ()
+              (make-local-variable 'company-backends)
+              (add-to-list 'company-backends 'hledger-company))))
+
+(use-package flycheck-hledger
+  :ensure t
+  :after (flycheck hledger-mode)
+  :demand t)
+
+
 

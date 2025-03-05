@@ -1,0 +1,18 @@
+[user]
+	name = "Aurélien DEROIDE"
+	email = aurelien.deroide@exoscale.ch
+	      
+[url "ssh://git@github.com/exoscale"]
+     insteadOf = https://github.com/exoscale
+
+[branch "master"]
+	pushRemote = invalid_remote_no_push
+[branch "main"]
+	pushRemote = invalid_remote_no_push
+	
+[pull]
+	rebase = true
+[github]
+	user = aureliar8
+[safe]
+	directory = /home/aurelien/code/cloudstack-private
