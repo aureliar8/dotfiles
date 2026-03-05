@@ -47,7 +47,19 @@ function toolbox() {
     docker run --rm -ti -v ~/.cloudstack.ini:/root/.cloudstack.ini -v ~/.config/exoscale/toolbox:/root/.config/exoscale/toolbox/ registry.internal.exoscale.ch/exoscale/toolbox:latest $*
 }
 
-alias findhost='ssh exoadmin@infra-dns003.gv2.p.exoscale.net findhost $1'
+#alias findhost='ssh exoadmin@infra-dns003.gv2.p.exoscale.net findhost $1'
+alias findhost='ssh exoadmin@infra-dns003 findhost $1'
+# findhost() {
+#   local filter="$1"
+#
+#   tailscale status --json | jq -r '.Peer[].HostName' | sort | {
+#     if [[ -n "$filter" ]]; then
+#       grep --color=auto -E -- "$filter"
+#     else
+#       cat
+#     fi
+#   }
+# }
 
 function tgo() {
     tmp="$(mktemp -p /tmp -d "tgo_$(date +%Y%m%d)_XXXXXXXX")"
@@ -64,3 +76,4 @@ function tgo() {
 }
 
 alias rg='rg --hidden'
+alias ip='ip --color=auto'

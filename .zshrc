@@ -18,8 +18,16 @@ setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 
 # Basic auto/tab complete:
-autoload -U compinit
 zstyle ':completion:*' menu select
+# Only complete Host section from ssh config and not the Hostname ones
+h=()
+if [[ -r ~/.ssh/tailscale_hostnames && -r ~/.ssh/config ]]; then
+  # fetch all Host line from your configs...
+  h=($h ${${${(@M)${(f)"$(cat ~/.ssh/{tailscale_hostnames,config})"}:#Host *}#Host }:#*[*?]*})
+fi
+zstyle ':completion:*:(ssh|scp):*' hosts $h
+unset h
+autoload -U compinit
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)               # Include hidden files.
@@ -45,12 +53,17 @@ source $POWERLINE_HOME/powerlevel10k.zsh-theme
 
 autoload -U +X bashcompinit && bashcompinit
 
-PATH=$PATH:$HOME/scripts
+PATH=$PATH:$HOME/personnal/rezine/wiki/bin
 
 complete -o nospace -C /usr/bin/terraform terraform
-export LIBVIRT_DEFAULT_URI="qemu:///system" 
+export LIBVIRT_DEFAULT_URI="qemu:///system"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+
+. "$HOME/.local/bin/env"
+
+# opencode
+export PATH=/home/aurelien/.opencode/bin:$PATH

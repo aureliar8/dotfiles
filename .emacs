@@ -123,6 +123,7 @@
 ;;   :config
 ;;   (load-theme 'nord t))
 
+
 (use-package org
   :ensure t
   :config
@@ -311,9 +312,20 @@
   :ensure t
   :commands (lsp lsp-deferred)
   :hook ((go-mode . lsp-deferred)
+	 (rust-mode . lsp-deferred)
 	 (lsp-mode . (lambda ()
 		       (let ((lsp-keymap-prefix "C-l"))
 			 (lsp-enable-which-key-integration)))))
+  :custom
+  ;; inlay hint for rust
+  (lsp-inlay-hint-enable t)
+  ;; These are optional configurations. See https://emacs-lsp.github.io/lsp-mode/page/lsp-rust-analyzer/#lsp-rust-analyzer-display-chaining-hints for a full list
+  (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+  (lsp-rust-analyzer-display-chaining-hints t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
+  (lsp-rust-analyzer-display-closure-return-type-hints t)
+  (lsp-rust-analyzer-display-parameter-hints nil)
+  (lsp-rust-analyzer-display-reborrow-hints nil)
   :config
   ;;(setq lsp-auto-guess-root t)
   (setq lsp-file-watch-threshold 2000)
@@ -334,6 +346,8 @@
 
 (use-package lsp-treemacs
   :ensure t)
+
+;; https://github.com/renzmann/treesit-auto ; maybe use that ? 
 
 ;; Language specific packages
 (use-package markdown-mode
@@ -385,7 +399,10 @@
   :ensure t)
 
 (use-package rust-mode
-  :ensure t)
+  :ensure t
+  :init (setq rust-mode-treesitter-derive t)
+  :config (setq rust-format-on-save t)
+)
 
 (use-package earthfile-mode
   :ensure t)
@@ -399,11 +416,7 @@
 (use-package hledger-mode
   :ensure t
   :mode ("\\.journal\\'" . hledger-mode)
-  :init
-  (add-hook 'hledger-mode-hook
-            (lambda ()
-              (make-local-variable 'company-backends)
-              (add-to-list 'company-backends 'hledger-company))))
+  :bind (:map hledger-mode-map ("RET" . nil)))
 
 (use-package flycheck-hledger
   :ensure t

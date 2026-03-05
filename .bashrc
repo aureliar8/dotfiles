@@ -130,3 +130,5 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 complete -C /usr/bin/terraform terraform
 . "$HOME/.cargo/env"
+
+. "$HOME/.local/bin/env"
