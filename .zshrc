@@ -43,9 +43,13 @@ bindkey '^ ' autosuggest-accept
 
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
 
-source /home/aurelien/bin/zsh-fzf-history-search.zsh 
+
+source /home/aurelien/bin/zsh-fzf-history-search.zsh
+# git clone https://github.com/zsh-users/zsh-autosuggestions /opt/zsh-autosuggestions
 source /opt/zsh-autosuggestions/zsh-autosuggestions.zsh
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /opt/zsh-syntax-highlighting
 source /opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /opt/powerlevel10k
 POWERLINE_HOME=/opt/powerlevel10k
 source $POWERLINE_HOME/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
