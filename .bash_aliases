@@ -1,6 +1,7 @@
 alias o='xdg-open'
 alias c='clear'
 alias tree='tree -C'
+# https://www.bowmanjd.com/dotfiles/dotfiles-2-bare-repo/
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 if command -v exa &>/dev/null
 then
